@@ -29,12 +29,13 @@ function alma_user_user_logged_in($account) {
 /**
  * writes preferred branch to user
  * 
- * @param Std Object $usr
+ * @param Std Object $account
  */
-function alma_user_user_authenticate_finalize($usr){
-  global $user;
-  $fields['preferred_branch'] = $usr->preferred_branch;
-  user_save($user,$fields);
+function alma_user_user_authenticate_finalize($account){
+  if($account->alma_preferred_branch != '' && $account->alma_preffered_branch <> $account->preferred_branch){
+    $fields['preferred_branch'] = $account->preferred_branch;
+    user_save($account,$fields);
+  }
 }
 /**
  *
@@ -68,7 +69,7 @@ function alma_user_user_authenticate($name, $pass) {
     'auth_mail' => '',
   );
   if($info['preferences']['patron_branch']){
-    $return['user']['preferred_branch'] = $info['preferences']['patron_branch'];
+    $return['user']['alma_preferred_branch'] = $info['preferences']['patron_branch'];
   }
 
 
