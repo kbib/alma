@@ -26,7 +26,16 @@ function alma_user_user_logged_in($account) {
   $creds = ding_library_user_get_credentials($account);
   return $creds != DING_PROVIDER_AUTH_REQUIRED;
 }
-
+/**
+ * writes preferred branch to user
+ * 
+ * @param Std Object $usr
+ */
+function alma_user_user_authenticate_finalize($usr){
+  global $user;
+  $fields['preferred_branch'] = $usr->preferred_branch;
+  user_save($user,$fields);
+}
 /**
  *
  */
@@ -58,6 +67,9 @@ function alma_user_user_authenticate($name, $pass) {
     'display_name' => $info['user_name'],
     'auth_mail' => '',
   );
+  if($info['preferences']['patron_branch']){
+    $return['user']['preferred_branch'] = $info['preferences']['patron_branch'];
+  }
 
 
   if (isset($info['mails'][0]) && valid_email_address($info['mails'][0]['mail'])) {
