@@ -32,7 +32,7 @@ function alma_user_user_logged_in($account) {
  * @param Std Object $account
  */
 function alma_user_user_authenticate_finalize($account){
-  if($account->alma_preferred_branch != '' && $account->alma_preffered_branch <> $account->preferred_branch){
+  if($account->alma_preferred_branch != '' && $account->alma_preferred_branch <> $account->preferred_branch){
     $fields['preferred_branch'] = $account->alma_preferred_branch;
     user_save($account,$fields);
   }
