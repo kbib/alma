@@ -26,17 +26,7 @@ function alma_user_user_logged_in($account) {
   $creds = ding_library_user_get_credentials($account);
   return $creds != DING_PROVIDER_AUTH_REQUIRED;
 }
-/**
- * writes preferred branch to user
- * 
- * @param Std Object $account
- */
-function alma_user_user_authenticate_finalize($account){
-  if($account->alma_preferred_branch != '' && $account->alma_preferred_branch <> $account->preferred_branch){
-    $fields['preferred_branch'] = $account->alma_preferred_branch;
-    user_save($account,$fields);
-  }
-}
+
 /**
  *
  */
